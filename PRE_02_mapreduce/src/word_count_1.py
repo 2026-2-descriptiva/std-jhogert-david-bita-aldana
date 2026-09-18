@@ -21,7 +21,6 @@ else:
 # -----------------------------------------------------------------------------
 
 n = 1000
-n = 3
 
 for file in glob.glob(f"{DATA_FOLDER}/*"):
 
@@ -73,9 +72,6 @@ for _, line in sequence:
 
 pairs_sequence = sorted(pairs_sequence)
 
-# from pprint import pprint
-
-# pprint(pairs_sequence[:5])
 
 
 # Reducer
@@ -83,11 +79,12 @@ pairs_sequence = sorted(pairs_sequence)
 
 result = []
 for key, value in pairs_sequence:
+
+
     if result and result[-1][0] == key:
         result[-1] = (key, result[-1][1] + value)
     else:
         result.append((key, value))
-
 
 
 # La carpeta de salida debe estar vacia
@@ -100,6 +97,12 @@ else:
     os.makedirs(OUTPUT_FOLDER)
 
 
+# Archivo con el conteo
+# -----------------------------------------------------------------------------
+
+with open(f"{OUTPUT_FOLDER}/part-00000", "w", encoding="utf-8") as f:
+    for key, value in result:
+        f.write(f"{key}\t{value}\n")
 
 
 # Marcador de éxito
